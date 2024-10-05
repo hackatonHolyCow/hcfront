@@ -15,7 +15,6 @@ const Chat = () => {
   const mediaStream = useRef(null);
   const chunks = useRef([]);
   const mediaRecorder = useRef(null);
-  const [recorderURL, setRecorderURL] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
   const [messages, setMessages] = useState([
     {
@@ -50,7 +49,6 @@ const Chat = () => {
         const recordedBlob = new Blob(chunks.current, { type: "audio/webm" });
         await PostUploadAudio(recordedBlob);
         const url = URL.createObjectURL(recordedBlob);
-        setRecorderURL(url);
         chunks.current = [];
       };
       mediaRecorder.current.start();
@@ -70,7 +68,6 @@ const Chat = () => {
       });
     }
   };
-  console.log("recorderURl", recorderURL);
   return (
     <>
       <Box
@@ -100,7 +97,7 @@ const Chat = () => {
             {messages.map((msg, index) => (
               <Box key={index + "messages"} sx={{ margin: 3 }}>
                 <Typography variant="h6">
-                  <strong>Mesero:</strong>
+                  <strong>Waiter:</strong>
                   {`${msg.agent}`}
                 </Typography>
                 <Typography variant="h6">
@@ -141,7 +138,6 @@ const Chat = () => {
               >
                 <MicIcon sx={{ fontSize: 30 }} />
               </Button>
-              <audio controls src={recorderURL} />
             </Box>
           </CardActions>
         </Card>

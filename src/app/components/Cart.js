@@ -47,7 +47,7 @@ const Cart = () => {
   return (
     <Box sx={{ marginTop: 5, maxHeight: "30vh" }}>
       <Typography component={"div"} variant="h4" sx={{ textAlign: "center" }}>
-        Tu pedido
+        Your order
       </Typography>
       <Grid
         sx={{

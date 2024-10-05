@@ -37,7 +37,7 @@ const Menu = () => {
   return (
     <>
       <Typography variant="h2" sx={{ textAlign: "center" }}>
-        Nuestro Menú
+        Our Menu
       </Typography>
       {items.map((item) => (
         <FoodItem item={item} key={"foodItem" + item.id} />
