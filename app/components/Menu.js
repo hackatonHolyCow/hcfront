@@ -10,7 +10,7 @@ const Menu = () => {
   useEffect(() => {
     const fetchMenu = async () => {
       try {
-        const response = await fetch("http://192.168.1.162:8000/api/v1/items/");
+        const response = await fetch("http://localhost:8000/api/v1/items/");
         if (!response.ok) {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
@@ -48,7 +48,6 @@ const Menu = () => {
           padding: 3,
           margin: "0 auto",
           width: "90%", // Ajustamos el ancho al 90%
-          backgroundColor: "#f7f7f7",
           borderRadius: 8, // Bordes redondeados
           // boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)", // Sombra suave
         }}
@@ -85,52 +84,41 @@ const FoodItem = ({ item }) => {
       }}
       key={item.id}
     >
-      <Grid container>
-        <Grid
-          size={{ md: 5, xs: 16 }}
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+      <Grid container alignItems="flex-start">
+        <Grid size={{ md: 4, xs:12 }} sx={{ display: "flex", justifyContent: "center" }}>
           <CardMedia
             component="img"
             image={item.picture || "https://via.placeholder.com/200"} // Imagen por defecto
-            height={180} // Imagen más grande
-            width={180}
-            sx={{ borderRadius: 6 }}
+            height={140} // Imagen más grande
+            width={140}
+            sx={{ borderRadius: 6 ,
+              width: "140px",
+              objectFit: 'cover', // Use 'contain' if you want to show the entire image
+
+            }}
           />
         </Grid>
-        <Grid size={{ md: 4 }}>
-          <Typography
-            component={"div"}
-            variant="h4"
-            sx={{ textAlign: "center", fontWeight: "bold", color: "#333" }}
-          >
-            {item.name}
-          </Typography>
+        <Grid size={{ md: 6, xs:12 }}  sx={{marginLeft: "15px", justifyContent: "start"}}>
           <Typography
             component={"div"}
             variant="h5"
-            sx={{ textAlign: "center", marginTop: 2, color: "#666" }}
+            sx={{ height: '50px', display: 'flex', alignItems: 'center' }} 
+          >
+            {item.name}
+          </Typography>
+
+          <Typography
+            component={"div"}
+            variant="h6"
+            sx={{ height: '50px', display: 'flex', alignItems: 'center' }} 
           >
             ${item.price}
           </Typography>
-        </Grid>
-        <Grid
-          size={{ md: 3 }}
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            padding: 2,
-          }}
-        >
+
           <Typography
             component={"div"}
             variant="body1"
-            sx={{ textAlign: "center", color: "#777" }}
+            sx={{ height: '50px', display: 'flex', alignItems: 'center' }} 
           >
             {item.description}
           </Typography>

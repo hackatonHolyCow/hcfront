@@ -1,5 +1,5 @@
 "use client";
-import { Box, Button, Grid2, Typography } from "@mui/material";
+import { Box, Button, Grid, Grid2, Typography } from "@mui/material";
 import Menu from "./components/Menu";
 import Chat from "./components/Chat";
 import Cart from "./components/Cart";
@@ -36,16 +36,18 @@ export default function Home() {
     setItemsCart(output);
   };
   return (
-    <Grid2 container>
-      <Grid2 size={6}>
+    <Grid2 container justifyContent={"center"}>
+      <Grid2 size={{ xs: 10, md: 6 }}>
         {isReady ? (
-          <>
+          <Grid2 container alignContent={"center"} alignItems={"center"} justifyContent={"center"}>        
             <Chat onRequest={updateItemsCart} id={id} messages={messages} />
             <Cart itemsCart={itemsCart} id={id} />
-          </>
+          </Grid2>
+          
         ) : (
           <Box
             sx={{
+              margin: "auto",
               height: "100%",
               width: "100%",
               display: "flex",
@@ -54,7 +56,7 @@ export default function Home() {
               flexDirection: "column",
             }}
           >
-            <Typography variant="h2" component={"div"}>
+            <Typography variant="h3" component={"div"} justifyItems={"center"}>
               Are you ready to order?
             </Typography>
             <Button

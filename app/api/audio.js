@@ -4,7 +4,7 @@ export const PostUploadAudio = async (audio, id = 0) => {
   formData.append("id", id);
 
   try {
-    const response = await fetch("http://192.168.1.163:8001/api/order", {
+    const response = await fetch("http://localhost:8001/api/order", {
       method: "POST",
       body: formData,
     });
