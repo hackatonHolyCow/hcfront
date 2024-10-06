@@ -38,11 +38,11 @@ export default function Home() {
   };
   return (
     <div>
-    <AppBar position="static" sx={{ backgroundColor: "#FFF5E1" }}> {/* Cambiar el color de fondo a crema */}
+    <AppBar position="static" sx={{ backgroundColor: "#FFF5E1", boxShadow: "none" }}> {/* Cambiar el color de fondo a crema */}
     <Toolbar>
       <Image src="/static/logo.png" alt="Logo" width={100} height={50} />
       <Typography variant="h6" sx={{ flexGrow: 1, marginLeft: 2, color: "black", fontWeight: "bold"  }}> {/* Cambiar el color del texto a negro */}
-        Chef Dashboard
+        CowAI
       </Typography>
     </Toolbar>
   </AppBar>
@@ -88,7 +88,7 @@ export default function Home() {
       </Grid2>
       <Grid2
         size={{ xs: 10, md: 6 }}
-        sx={{ backgroundColor: "#e8eaf6", height: "100vh" }}
+        sx={{ backgroundColor: "#003366", height: "100vh" }}
       >
         <Menu />
       </Grid2>

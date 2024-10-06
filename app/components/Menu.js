@@ -34,7 +34,7 @@ const Menu = () => {
           marginTop: 4,
           marginBottom: 4,
           fontWeight: "bold",
-          color: "#333",
+          color: "white",
         }}
       >
         Our Menu
