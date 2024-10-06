@@ -55,7 +55,7 @@ export default function Home() {
               flexDirection: "column",
             }}
           >
-            <Typography variant="h2" component={"div"}>
+            <Typography variant="h3" component={"div"} justifyItems={"center"}>
               Are you ready to order?
             </Typography>
             <Button

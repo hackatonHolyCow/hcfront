@@ -132,18 +132,20 @@ const Chat = ({ onRequest, id, messages }) => {
         }}
       >
         <Typography variant="h3">Chat</Typography>
+        {id !== 0 &&
         <Card
-          sx={{
-            backgroundColor: "#e6f6fa",
-            display: "flex",
-            flexDirection: "column",
-          }}
+        sx={{
+          width:"100%",
+          backgroundColor: "#e6f6fa",
+          display: "flex",
+          flexDirection: "column",
+        }}
         >
           <CardContent
             sx={{
               overflow: "auto",
             }}
-          >
+            >
             {messages.map((msg, index) => (
               <Box key={index + "messages"} sx={{ margin: 3 }}>
                 <Typography variant="h6">
@@ -162,16 +164,10 @@ const Chat = ({ onRequest, id, messages }) => {
               marginTop: "auto",
               justifyContent: "center",
             }}
-          >
-            {/* <Button
-              variant="contained"
-              color="primary"
-              sx={{ borderRadius: "50%", width: 70, height: 70 }}
             >
-              <MicIcon sx={{ fontSize: 30 }} />
-            </Button> */}
           </CardActions>
         </Card>
+        }
         <Box sx={{ marginTop: 2, flexDirection: "row", display: "flex" }}>
           <Typography variant="h6" sx={{ marginTop: 2, marginRight: 3 }}>
             {isRecording
