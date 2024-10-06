@@ -41,7 +41,7 @@ export default function Home() {
         {isReady ? (
           <>
             <Chat onRequest={updateItemsCart} id={id} messages={messages} />
-            <Cart itemsCart={itemsCart} />
+            <Cart itemsCart={itemsCart} id={id} />
           </>
         ) : (
           <Box

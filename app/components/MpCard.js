@@ -14,20 +14,27 @@ export const MPCheckout = (props) => {
 
   const onsubmit = async (param) => {
     try {
-        const resp = await PostOrder({
-            payment: param,
-            table: "1",
-            items: props.items,
-        })
+      const itemsPayment = props.items.map((item) => ({
+        id: item.id,
+        comments: item.modifications,
+        quantity: item.quantity,
+        price: item.price,
+      }));
+      // TODO : meter random en table
+      const resp = await PostOrder({
+        payment: param,
+        table: "1",
+        items: itemsPayment,
+        id: props.id,
+      });
 
-        console.log(resp);
-
-        return;
-    } catch(err) {
-        console.log(err);
-        return;
+      props.onSuccess();
+      console.log(resp);
+    } catch (err) {
+      console.log(err);
+      return;
     }
-  }
+  };
 
   return (
     <CardPayment
