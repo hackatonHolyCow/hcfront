@@ -16,7 +16,6 @@ const Menu = () => {
         }
 
         const data = await response.json();
-        console.log("Respuesta del servidor:", data);
         setItems(data);
       } catch (error) {
         console.error("Error fetching menu:", error);
