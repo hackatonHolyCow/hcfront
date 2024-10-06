@@ -57,7 +57,7 @@ const Menu = () => {
             <FoodItem item={item} key={item.id} /> // Muestra cada ítem
           ))
         ) : (
-          <Typography variant="h6" sx={{ textAlign: "center" }}>
+          <Typography variant="h6" sx={{ textAlign: "center", color:"white" }}>
             Cargando el menú...
           </Typography>
         )}
@@ -112,7 +112,7 @@ const FoodItem = ({ item }) => {
             variant="h6"
             sx={{ height: '50px', display: 'flex', alignItems: 'center' }} 
           >
-            ${item.price}
+            ${item.price/100}
           </Typography>
 
           <Typography
