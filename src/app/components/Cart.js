@@ -4,43 +4,44 @@ import { useState } from "react";
 import Grid from "@mui/material/Grid2";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
+import { MPCheckout } from "./MpCard";
 
 const Cart = () => {
   const [items, setItems] = useState([
     {
       id: "a6fa5b1c-5bc5-4741-bb3a-073ba0c93e37",
-      Name: "Hot Chocolate",
-      Description: "Rich and creamy hot chocolate topped with whipped cream.",
-      Price: "3.50",
-      Tags: ["beverage", "dessert"],
-      "Picture URL":
+      name: "Hot Chocolate",
+      description: "Rich and creamy hot chocolate topped with whipped cream.",
+      price: 4000,
+      tags: ["beverage", "dessert"],
+      picture:
         "https://images.unsplash.com/photo-1517578239113-b03992dcdd25?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      quantity: "1",
+      quantity: 1,
     },
     {
       id: "2e614fe8-6db4-4d56-bcb3-2ae868917a83",
-      Name: "Red Wine",
-      Description: "A glass of rich red wine, perfect for pairing with dinner.",
-      Price: "9.00",
-      Tags: ["beverage", "wine", "contains alcohol"],
-      "Picture URL":
+      name: "Red Wine",
+      description: "A glass of rich red wine, perfect for pairing with dinner.",
+      price: 10000,
+      tags: ["beverage", "wine", "contains alcohol"],
+      picture:
         "https://images.unsplash.com/photo-1700893417207-99da24343476?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      quantity: "1",
+      quantity: 1,
     },
     {
       id: "b0b83673-d646-4c71-8326-f4407c802f56",
-      Name: "Lemonade",
-      Description: "Freshly squeezed lemonade, served chilled.",
-      Price: "2.99",
-      Tags: ["beverage", "non-alcoholic"],
-      "Picture URL": "https://example.com/images/lemonade.jpg",
-      quantity: "2",
+      name: "Lemonade",
+      description: "Freshly squeezed lemonade, served chilled.",
+      price: 9000,
+      tags: ["beverage", "non-alcoholic"],
+      picture: "https://example.com/images/lemonade.jpg",
+      quantity: 2,
     },
   ]);
   const getTotal = () => {
     let total = 0;
     items.forEach((item) => {
-      total += parseFloat(item.Price) * parseInt(item.quantity);
+      total += item.price * item.quantity;
     });
     return total;
   };
@@ -100,8 +101,8 @@ const Cart = () => {
                   borderBottom: "1px solid black",
                 }}
               >
-                <Typography variant="h7">{item.Name}</Typography>
-                <Typography variant="body2">{item.Description}</Typography>
+                <Typography variant="h7">{item.name}</Typography>
+                <Typography variant="body2">{item.description}</Typography>
               </Grid>
               <Grid
                 size={1}
@@ -109,7 +110,7 @@ const Cart = () => {
                   borderBottom: "1px solid black",
                 }}
               >
-                <Typography variant="h7">{item.Price}</Typography>
+                <Typography variant="h7">{item.price}</Typography>
               </Grid>
             </Grid>
           </Box>
@@ -127,6 +128,15 @@ const Cart = () => {
         <Typography variant="h6" sx={{ marginLeft: 5 }}>
           {getTotal()}
         </Typography>
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: 3,
+        }}
+      >
+        <MPCheckout items={items} />
       </Box>
     </Box>
   );
