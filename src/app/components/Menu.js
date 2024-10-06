@@ -1,115 +1,146 @@
-import React from "react";
+"use client"; // Asegúrate de que el componente sea un Client Component
+
+import React, { useEffect, useState } from "react";
 import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 
 const Menu = () => {
-  const items = [
-    {
-      id: "a6fa5b1c-5bc5-4741-bb3a-073ba0c93e37",
-      Name: "Hot Chocolate",
-      Description: "Rich and creamy hot chocolate topped with whipped cream.",
-      Price: "3.50",
-      Tags: ["beverage", "dessert"],
-      "Picture URL":
-        "https://images.unsplash.com/photo-1517578239113-b03992dcdd25?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      quantity: "1",
-    },
-    {
-      id: "2e614fe8-6db4-4d56-bcb3-2ae868917a83",
-      Name: "Red Wine",
-      Description: "A glass of rich red wine, perfect for pairing with dinner.",
-      Price: "9.00",
-      Tags: ["beverage", "wine", "contains alcohol"],
-      "Picture URL":
-        "https://images.unsplash.com/photo-1700893417207-99da24343476?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      quantity: "1",
-    },
-    {
-      id: "b0b83673-d646-4c71-8326-f4407c802f56",
-      Name: "Lemonade",
-      Description: "Freshly squeezed lemonade, served chilled.",
-      Price: "$2.99",
-      Tags: ["beverage", "non-alcoholic"],
-      "Picture URL": "https://example.com/images/lemonade.jpg",
-      quantity: "2",
-    },
-  ];
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    const fetchMenu = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/api/v1/items/");
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log("Respuesta del servidor:", data);
+        setItems(data);
+      } catch (error) {
+        console.error("Error fetching menu:", error);
+      }
+    };
+
+    fetchMenu();
+  }, []);
+
   return (
     <>
-      <Typography variant="h2" sx={{ textAlign: "center" }}>
+      <Typography
+        variant="h2"
+        sx={{
+          textAlign: "center",
+          marginTop: 4,
+          marginBottom: 4,
+          fontWeight: "bold",
+          fontSize: "2.5rem",
+          color: "#333",
+        }}
+      >
         Nuestro Menú
       </Typography>
-      {items.map((item) => (
-        <FoodItem item={item} key={"foodItem" + item.id} />
-      ))}
+
+      {/* Contenedor con scroll y diseño */}
+      <Box
+        sx={{
+          maxHeight: 600, // Aumentamos la altura máxima a 600px
+          overflowY: "auto", // Habilita el scroll vertical
+          padding: 3,
+          margin: "0 auto",
+          width: "90%", // Ajustamos el ancho al 90%
+          backgroundColor: "#f7f7f7",
+          borderRadius: 8, // Bordes redondeados
+          boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)", // Sombra suave
+        }}
+      >
+        {items.length > 0 ? (
+          items.map((item) => (
+            <FoodItem item={item} key={item.id} /> // Muestra cada ítem
+          ))
+        ) : (
+          <Typography variant="h6" sx={{ textAlign: "center" }}>
+            Cargando el menú...
+          </Typography>
+        )}
+      </Box>
     </>
   );
 };
+
 const FoodItem = ({ item }) => {
   return (
-    <>
-      <Card
-        sx={{
-          display: "flex",
-          padding: 1,
-          borderRadius: 4,
-          margin: 5,
-          minWidth: 250,
-        }}
-        key={item.id}
-      >
-        <Grid container>
-          <Grid
-            size={{ md: 5, sx: 16 }}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <CardMedia
-              component="img"
-              image={item["Picture URL"]}
-              height={150}
-              width={150}
-              sx={{ borderRadius: 4 }}
-            />
-          </Grid>
-          <Grid size={{ md: 4 }}>
-            <Typography
-              component={"div"}
-              variant="h4"
-              sx={{ textAlign: "center" }}
-            >
-              {item.Name}
-            </Typography>
-            <Typography
-              component={"div"}
-              variant="h5"
-              sx={{ textAlign: "center", marginTop: 5 }}
-            >
-              {item.Price}
-            </Typography>
-          </Grid>
-          <Grid
-            size={{ md: 3 }}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Typography
-              component={"div"}
-              variant="body1"
-              sx={{ textAlign: "center" }}
-            >
-              {item.Description}
-            </Typography>
-          </Grid>
+    <Card
+      sx={{
+        display: "flex",
+        padding: 2,
+        borderRadius: 5,
+        margin: 3, // Mayor espaciado entre las tarjetas
+        minWidth: 300, // Un poco más ancha
+        backgroundColor: "#fff",
+        maxHeight:"100vh",
+        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", // Sombra más definida
+        transition: "transform 0.2s ease-in-out", // Animación al pasar el mouse
+        "&:hover": {
+          transform: "scale(1.02)", // Efecto zoom al pasar el mouse
+        },
+      }}
+      key={item.id}
+    >
+      <Grid container>
+        <Grid
+          size={{ md: 5, xs: 16 }}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <CardMedia
+            component="img"
+            image={item.picture || "https://via.placeholder.com/200"} // Imagen por defecto
+            height={180} // Imagen más grande
+            width={180}
+            sx={{ borderRadius: 6 }}
+          />
         </Grid>
-      </Card>
-    </>
+        <Grid size={{ md: 4 }}>
+          <Typography
+            component={"div"}
+            variant="h4"
+            sx={{ textAlign: "center", fontWeight: "bold", color: "#333" }}
+          >
+            {item.name}
+          </Typography>
+          <Typography
+            component={"div"}
+            variant="h5"
+            sx={{ textAlign: "center", marginTop: 2, color: "#666" }}
+          >
+            ${item.price}
+          </Typography>
+        </Grid>
+        <Grid
+          size={{ md: 3 }}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: 2,
+          }}
+        >
+          <Typography
+            component={"div"}
+            variant="body1"
+            sx={{ textAlign: "center", color: "#777" }}
+          >
+            {item.description}
+          </Typography>
+        </Grid>
+      </Grid>
+    </Card>
   );
 };
+
 export default Menu;
