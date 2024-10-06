@@ -8,7 +8,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import MicIcon from "@mui/icons-material/Mic";
 import StopIcon from "@mui/icons-material/Stop";
 import { PostUploadAudio } from "../api/audio";
@@ -18,6 +18,8 @@ const Chat = ({ onRequest, id, messages }) => {
   const chunks = useRef([]);
   const mediaRecorder = useRef(null);
   const [isRecording, setIsRecording] = useState(false);
+
+
 
 
   const reproduceAudio = async () => {
@@ -65,6 +67,13 @@ const Chat = ({ onRequest, id, messages }) => {
         } 
     }
   };
+
+
+  useEffect(() => {
+    console.log("Reproduce")
+    reproduceAudio()
+  }, [messages])
+  
   // const [messages, setMessages] = useState([
   //   {
   //     agent: "Hola! Pide tu orden haciendo click en el botón del menú",
