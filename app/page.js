@@ -41,8 +41,9 @@ export default function Home() {
         {isReady ? (
           <Grid2 container alignContent={"center"} alignItems={"center"} justifyContent={"center"}>        
             <Chat onRequest={updateItemsCart} id={id} messages={messages} />
-            <Cart itemsCart={itemsCart} />
+            <Cart itemsCart={itemsCart} id={id} />
           </Grid2>
+          
         ) : (
           <Box
             sx={{
