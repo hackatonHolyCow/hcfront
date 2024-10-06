@@ -39,9 +39,13 @@ export default function Home() {
     <Grid2 container justifyContent={"center"}>
       <Grid2 size={{ xs: 10, md: 6 }}>
         {isReady ? (
-          <Grid2 container alignContent={"center"} alignItems={"center"} justifyContent={"center"}>        
+          <Grid2 container alignContent={"center"} alignItems={"center"} justifyContent={"center"}> 
+            <Grid2 size={{ xs:10 }}>
+
             <Chat onRequest={updateItemsCart} id={id} messages={messages} />
             <Cart itemsCart={itemsCart} id={id} />
+            </Grid2>
+              
           </Grid2>
           
         ) : (
