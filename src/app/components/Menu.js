@@ -1,6 +1,9 @@
+"use client";
+
 import React from "react";
 import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
+import { MPCheckout } from "./MpCard";
 
 const Menu = () => {
   const items = [
