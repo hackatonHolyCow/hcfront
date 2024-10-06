@@ -10,7 +10,7 @@ const Menu = () => {
   useEffect(() => {
     const fetchMenu = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/v1/items/");
+        const response = await fetch("http://192.168.1.162:8000/api/v1/items/");
         if (!response.ok) {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
@@ -27,15 +27,14 @@ const Menu = () => {
   }, []);
 
   return (
-    <>
+    <Box sx={{ maxHeight: "100vh" }}>
       <Typography
-        variant="h2"
+        variant="h3"
         sx={{
           textAlign: "center",
           marginTop: 4,
           marginBottom: 4,
           fontWeight: "bold",
-          fontSize: "2.5rem",
           color: "#333",
         }}
       >
@@ -52,7 +51,7 @@ const Menu = () => {
           width: "90%", // Ajustamos el ancho al 90%
           backgroundColor: "#f7f7f7",
           borderRadius: 8, // Bordes redondeados
-          boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)", // Sombra suave
+          // boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)", // Sombra suave
         }}
       >
         {items.length > 0 ? (
@@ -65,7 +64,7 @@ const Menu = () => {
           </Typography>
         )}
       </Box>
-    </>
+    </Box>
   );
 };
 
@@ -79,7 +78,6 @@ const FoodItem = ({ item }) => {
         margin: 3, // Mayor espaciado entre las tarjetas
         minWidth: 300, // Un poco más ancha
         backgroundColor: "#fff",
-        maxHeight:"100vh",
         boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", // Sombra más definida
         transition: "transform 0.2s ease-in-out", // Animación al pasar el mouse
         "&:hover": {

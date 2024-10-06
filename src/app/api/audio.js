@@ -1,27 +1,25 @@
-export const PostUploadAudio = async (audio) => {
+export const PostUploadAudio = async (audio, id = 0) => {
   const formData = new FormData();
   formData.append("file", audio, "audio.webm");
-  console.log("formData", formData);
+  formData.append("id", id);
+
   try {
-    const response = await fetch(
-      "https://24a8-190-113-244-78.ngrok-free.app/api/order",
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
+    const response = await fetch("http://192.168.1.163:8001/api/order", {
+      method: "POST",
+      body: formData,
+    });
     if (response.ok) {
       const body = await response.json();
-      console.log("EL CUERPECITO", body[body.length - 1]);
-      console.log("NASHEEE ANASHEEE");
+      return body;
     } else {
-      console.log("NO ME LA CONTES AMIGO NO SE QUE PASO", response);
+      console.log("NO ME LA CONTES AMIGO QUE PASO", response);
+      return [];
     }
   } catch (error) {
     console.log("Error on PostUploadAudio", error);
+    return [];
   }
 };
-
 
 export const PostOrder = async (order) => {
   try {
@@ -31,7 +29,7 @@ export const PostOrder = async (order) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(order),
-    })
+    });
 
     if (!response.ok) {
       throw new Error("Error on PostOrder");
@@ -40,7 +38,7 @@ export const PostOrder = async (order) => {
     const body = await response.json();
     console.log("EL CUERPECITO", body);
     return body;
-  } catch(err) {
+  } catch (err) {
     throw new Error(err);
   }
-}
+};

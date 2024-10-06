@@ -9,9 +9,10 @@ import {
 } from "@mui/material";
 import { useRef, useState } from "react";
 import MicIcon from "@mui/icons-material/Mic";
+import StopIcon from "@mui/icons-material/Stop";
 import { PostUploadAudio } from "../api/audio";
 
-const Chat = () => {
+const Chat = ({ onRequest, id }) => {
   const mediaStream = useRef(null);
   const chunks = useRef([]);
   const mediaRecorder = useRef(null);
@@ -47,7 +48,9 @@ const Chat = () => {
       };
       mediaRecorder.current.onstop = async () => {
         const recordedBlob = new Blob(chunks.current, { type: "audio/webm" });
-        await PostUploadAudio(recordedBlob);
+        const response = await PostUploadAudio(recordedBlob);
+        console.log("2response", response);
+        onRequest(response);
         const url = URL.createObjectURL(recordedBlob);
         chunks.current = [];
       };
@@ -78,7 +81,7 @@ const Chat = () => {
           alignItems: "center",
           justifyContent: "center",
           flexDirection: "column",
-          maxHeight: "40vh",
+          maxHeight: "45vh",
         }}
       >
         <Typography variant="h3">Chat</Typography>
@@ -120,27 +123,30 @@ const Chat = () => {
             >
               <MicIcon sx={{ fontSize: 30 }} />
             </Button> */}
-            <Box
-              sx={{
-                position: "absolute",
-                right: "55%",
-                zIndex: 10, // Asegura que esté por encima del contenido del chat
-              }}
-            >
-              <Button
-                variant="contained"
-                color="primary"
-                sx={{ borderRadius: "50%", width: 70, height: 70 }}
-                onClick={() => {
-                  if (isRecording) stopRecording();
-                  else startRecording();
-                }}
-              >
-                <MicIcon sx={{ fontSize: 30 }} />
-              </Button>
-            </Box>
           </CardActions>
         </Card>
+        <Box sx={{ marginTop: 2, flexDirection: "row", display: "flex" }}>
+          <Typography variant="h6" sx={{ marginTop: 2, marginRight: 3 }}>
+            {isRecording
+              ? "Click here to stop record your order"
+              : "Click here to start recording your order"}
+          </Typography>
+          <Button
+            variant="contained"
+            color={isRecording ? "error" : "primary"}
+            sx={{ borderRadius: "50%", width: 70, height: 70 }}
+            onClick={() => {
+              if (isRecording) stopRecording();
+              else startRecording();
+            }}
+          >
+            {isRecording ? (
+              <StopIcon sx={{ fontSize: 30 }} />
+            ) : (
+              <MicIcon sx={{ fontSize: 30 }} />
+            )}
+          </Button>
+        </Box>
       </Box>
     </>
   );
