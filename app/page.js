@@ -1,9 +1,10 @@
 "use client";
-import { Box, Button, Grid, Grid2, Typography } from "@mui/material";
+import { AppBar, Box, Button, Grid, Grid2, Toolbar, Typography } from "@mui/material";
 import Menu from "./components/Menu";
 import Chat from "./components/Chat";
 import Cart from "./components/Cart";
 import { useState } from "react";
+import Image from "next/image";
 
 export default function Home() {
   const [itemsCart, setItemsCart] = useState([]);
@@ -36,6 +37,15 @@ export default function Home() {
     setItemsCart(output);
   };
   return (
+    <div>
+    <AppBar position="static" sx={{ backgroundColor: "#FFF5E1" }}> {/* Cambiar el color de fondo a crema */}
+    <Toolbar>
+      <Image src="/static/logo.png" alt="Logo" width={100} height={50} />
+      <Typography variant="h6" sx={{ flexGrow: 1, marginLeft: 2, color: "black", fontWeight: "bold"  }}> {/* Cambiar el color del texto a negro */}
+        Chef Dashboard
+      </Typography>
+    </Toolbar>
+  </AppBar>
     <Grid2 container justifyContent={"center"}>
       <Grid2 size={{ xs: 10, md: 6 }}>
         {isReady ? (
@@ -83,5 +93,6 @@ export default function Home() {
         <Menu />
       </Grid2>
     </Grid2>
+    </div>
   );
 }

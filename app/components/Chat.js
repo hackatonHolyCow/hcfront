@@ -138,7 +138,7 @@ const Chat = ({ onRequest, id, messages }) => {
           width:"100%",
           backgroundColor: "#e6f6fa",
           display: "flex",
-          flexDirection: "column",
+          flexDirection: "column"
         }}
         >
           <CardContent
