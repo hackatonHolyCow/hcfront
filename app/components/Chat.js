@@ -5,18 +5,66 @@ import {
   Card,
   CardActions,
   CardContent,
+  Stack,
   Typography,
 } from "@mui/material";
 import { useRef, useState } from "react";
 import MicIcon from "@mui/icons-material/Mic";
 import StopIcon from "@mui/icons-material/Stop";
 import { PostUploadAudio } from "../api/audio";
-
+import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 const Chat = ({ onRequest, id, messages }) => {
   const mediaStream = useRef(null);
   const chunks = useRef([]);
   const mediaRecorder = useRef(null);
   const [isRecording, setIsRecording] = useState(false);
+
+
+  const reproduceAudio = async () => {
+    console.log("a")
+    if (messages.length > 0) {
+      const lastMessage = messages[messages.length - 1].agent;
+      try {
+        // Sending the last message to the backend
+        const response = await fetch('http://localhost:8000/api/v1/speech', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ text: lastMessage }),
+        });
+      
+        console.log("RESPONSE",response.body);
+
+        const reader = response.body.getReader();
+        const chunks = [];
+        let done = false;
+
+        while (!done) {
+          const { value, done: readerDone } = await reader.read();
+          if (value) {
+            chunks.push(value);
+          }
+          done = readerDone;
+        }
+
+        // Combine all chunks into a Blob
+        const audioBlob = new Blob(chunks, { type: 'audio/mpeg' }); // Adjust type if needed
+
+        // Create a URL for the Blob
+        const audioUrl = URL.createObjectURL(audioBlob);
+
+        // Create an audio element and play it
+        const audio = new Audio(audioUrl);
+        audio.play();
+
+
+      }
+        catch (error) {
+          console.error('Error sending message or receiving audio:', error);
+        } 
+    }
+  };
   // const [messages, setMessages] = useState([
   //   {
   //     agent: "Hola! Pide tu orden haciendo click en el botón del menú",
@@ -103,7 +151,7 @@ const Chat = ({ onRequest, id, messages }) => {
                   {msg.user}
                 </Typography>
                 <Typography variant="h6">
-                  <strong>Waiter:</strong>
+                  <strong>Waiter: </strong>
                   {`${msg.agent}`}
                 </Typography>
               </Box>
@@ -130,6 +178,8 @@ const Chat = ({ onRequest, id, messages }) => {
               ? "Click here to stop record your order"
               : "Click here to start recording your order"}
           </Typography>
+          <Stack direction={"row"} spacing={2}>
+
           <Button
             variant="contained"
             color={isRecording ? "error" : "primary"}
@@ -145,6 +195,21 @@ const Chat = ({ onRequest, id, messages }) => {
               <MicIcon sx={{ fontSize: 30 }} />
             )}
           </Button>
+          {id !== 0 &&
+          <Button
+            variant="contained"
+            color={"primary"}
+            sx={{ borderRadius: "50%", width: 70, height: 70 }}
+            onClick={() => {
+              reproduceAudio()
+            }}
+          >
+          <PlayCircleIcon sx={{fontSize: 30}}/>            
+          </Button>
+          }
+
+          </Stack>
+
         </Box>
       </Box>
     </>

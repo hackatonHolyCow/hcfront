@@ -10,7 +10,7 @@ const Menu = () => {
   useEffect(() => {
     const fetchMenu = async () => {
       try {
-        const response = await fetch("http://192.168.1.162:8000/api/v1/items/");
+        const response = await fetch("http://localhost:8000/api/v1/items/");
         if (!response.ok) {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
