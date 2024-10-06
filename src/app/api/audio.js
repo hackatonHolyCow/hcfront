@@ -10,6 +10,7 @@ export const PostUploadAudio = async (audio, id = 0) => {
     });
     if (response.ok) {
       const body = await response.json();
+      console.log("el bodyl", body);
       return body;
     } else {
       console.log("NO ME LA CONTES AMIGO QUE PASO", response);

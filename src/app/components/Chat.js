@@ -12,29 +12,29 @@ import MicIcon from "@mui/icons-material/Mic";
 import StopIcon from "@mui/icons-material/Stop";
 import { PostUploadAudio } from "../api/audio";
 
-const Chat = ({ onRequest, id }) => {
+const Chat = ({ onRequest, id, messages }) => {
   const mediaStream = useRef(null);
   const chunks = useRef([]);
   const mediaRecorder = useRef(null);
   const [isRecording, setIsRecording] = useState(false);
-  const [messages, setMessages] = useState([
-    {
-      agent: "Hola! Pide tu orden haciendo click en el botón del menú",
-      user: "Me gustaría pedir dos papitas",
-    },
-    {
-      agent: "Claro! Algo más?",
-      user: "Su cokita rica mmmm que rica la cokita",
-    },
-    {
-      agent: "Me alegra que te guste la cokita, es muy rica!",
-      user: "Siono ñami ñami",
-    },
-    {
-      agent: "Me alegra que te guste la cokita, es muy rica!",
-      user: "Siono ñami ñami",
-    },
-  ]);
+  // const [messages, setMessages] = useState([
+  //   {
+  //     agent: "Hola! Pide tu orden haciendo click en el botón del menú",
+  //     user: "Me gustaría pedir dos papitas",
+  //   },
+  //   {
+  //     agent: "Claro! Algo más?",
+  //     user: "Su cokita rica mmmm que rica la cokita",
+  //   },
+  //   {
+  //     agent: "Me alegra que te guste la cokita, es muy rica!",
+  //     user: "Siono ñami ñami",
+  //   },
+  //   {
+  //     agent: "Me alegra que te guste la cokita, es muy rica!",
+  //     user: "Siono ñami ñami",
+  //   },
+  // ]);
   const startRecording = async () => {
     setIsRecording(true);
     try {
@@ -48,8 +48,7 @@ const Chat = ({ onRequest, id }) => {
       };
       mediaRecorder.current.onstop = async () => {
         const recordedBlob = new Blob(chunks.current, { type: "audio/webm" });
-        const response = await PostUploadAudio(recordedBlob);
-        console.log("2response", response);
+        const response = await PostUploadAudio(recordedBlob, id);
         onRequest(response);
         const url = URL.createObjectURL(recordedBlob);
         chunks.current = [];
@@ -100,12 +99,12 @@ const Chat = ({ onRequest, id }) => {
             {messages.map((msg, index) => (
               <Box key={index + "messages"} sx={{ margin: 3 }}>
                 <Typography variant="h6">
-                  <strong>Waiter:</strong>
-                  {`${msg.agent}`}
-                </Typography>
-                <Typography variant="h6">
                   <strong>Tú: </strong>
                   {msg.user}
+                </Typography>
+                <Typography variant="h6">
+                  <strong>Waiter:</strong>
+                  {`${msg.agent}`}
                 </Typography>
               </Box>
             ))}
