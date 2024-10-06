@@ -1,0 +1,38 @@
+import { initMercadoPago, CardPayment } from "@mercadopago/sdk-react";
+import { PostOrder } from "../api/audio";
+
+initMercadoPago("TEST-bdbff110-dc0c-488d-bff3-4b9346273e33");
+
+export const MPCheckout = (props) => {
+  const getTotal = (items) => {
+    let total = 0;
+    items.forEach((item) => {
+      total += item.price * item.quantity;
+    });
+    return total;
+  };
+
+  const onsubmit = async (param) => {
+    try {
+        const resp = await PostOrder({
+            payment: param,
+            table: "1",
+            items: props.items,
+        })
+
+        console.log(resp);
+
+        return;
+    } catch(err) {
+        console.log(err);
+        return;
+    }
+  }
+
+  return (
+    <CardPayment
+      initialization={{ amount: getTotal(props.items) }}
+      onSubmit={onsubmit}
+    />
+  );
+};

@@ -1,8 +1,8 @@
 "use client"; // Asegúrate de que el componente sea un Client Component
-
 import React, { useEffect, useState } from "react";
 import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
+import { MPCheckout } from "./MpCard";
 
 const Menu = () => {
   const [items, setItems] = useState([]);
@@ -39,7 +39,7 @@ const Menu = () => {
           color: "#333",
         }}
       >
-        Nuestro Menú
+        Our Menu
       </Typography>
 
       {/* Contenedor con scroll y diseño */}
