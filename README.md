@@ -1,5 +1,7 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Proyect
+This project was made for the hackaton of Audience View on October 2024
 ## Getting Started
 
 First, run the development server:
